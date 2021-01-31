@@ -28,17 +28,11 @@ jobs:
       with: 
         ref: master 
         path: conf 
-    - name: Get composer cache directory
-      id: composer-cache
-      run: |
-        cd satis
-        echo "::set-output name=dir::$(composer config cache-files-dir)"
     - name: Cache dependencies
       uses: actions/cache@v2
       with:
-        path: ${{ steps.composer-cache.outputs.dir }}
-        key: composer-${{ hashFiles('./satis/composer.lock') }}
-        restore-keys: composer-
+        path: '~/.cache/composer/files'
+        key: composer-cache
     - name: Install Satis
       run: composer create-project --remove-vcs composer/satis:dev-master ./satis
     - name: Run Satis
