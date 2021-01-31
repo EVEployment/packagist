@@ -18,17 +18,6 @@ jobs:
         tools: composer
       env:
         fail-fast: true
-    - name: Get composer cache directory
-      id: composer-cache
-      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-    - name: Cache dependencies
-      uses: actions/cache@v2
-      with:
-        path: ${{ steps.composer-cache.outputs.dir }}
-        key: composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: composer-
-    - name: Install Satis
-      run: composer create-project --remove-vcs composer/satis:dev-master ./satis
     - name: Checkout Pages
       uses: actions/checkout@v2
       with:
@@ -39,6 +28,19 @@ jobs:
       with: 
         ref: master 
         path: conf 
+    - name: Get composer cache directory
+      id: composer-cache
+      run: 
+        cd satis
+        echo "::set-output name=dir::$(composer config cache-files-dir)"
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: composer-${{ hashFiles('./satis/composer.lock') }}
+        restore-keys: composer-
+    - name: Install Satis
+      run: composer create-project --remove-vcs composer/satis:dev-master ./satis
     - name: Run Satis
       run: php satis/bin/satis build conf/satis.json pages/
     - name: Upload changes to Pages
