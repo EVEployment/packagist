@@ -34,13 +34,11 @@ jobs:
       with:
         ref: gh-pages
         path: pages 
-        persist-credentials: false
     - name: Checkout configurations
       uses: actions/checkout@v2
       with: 
         ref: master 
         path: conf 
-        token: ${{ secrets.PAT }}
     - name: Run Satis
       run: php satis/bin/satis build conf/satis.json pages/
     - name: Upload changes to Pages
