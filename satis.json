@@ -1,0 +1,6 @@
+{
+    "name": "EVEployment Repository",
+    "homepage": "https://eveployment.github.io/packagist",
+    "repositories": [],
+    "require-all": true
+}

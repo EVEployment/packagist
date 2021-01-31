@@ -1,0 +1,54 @@
+name: Build Packagist Repository
+
+on: 
+  push:
+    branches: 
+      - main
+  workflow_dispatch:
+    
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup PHP with Composer
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: latest
+        extensions: mbstring
+        tools: composer
+      env:
+        fail-fast: true
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: composer-
+    - name: Install Satis
+      run: composer create-project --remove-vcs composer/satis:dev-master ./satis
+    - name: Checkout Pages
+      uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        path: pages 
+        persist-credentials: false
+    - name: Checkout configurations
+      uses: actions/checkout@v2
+      with: 
+        ref: master 
+        path: conf 
+        token: ${{ secrets.PAT }}
+    - name: Run Satis
+      run: php satis/bin/satis build conf/satis.json pages/
+    - name: Upload changes to Pages
+      continue-on-error: true
+      run: |
+        cd pages
+        git config --local user.name 'github-actions'
+        git config --local user.email 'github-actions@users.noreply.github.com'
+        git add --all
+        git commit -m "ci(update): Update satis repository"
+        git push
