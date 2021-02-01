@@ -1,0 +1,47 @@
+{
+    "packages": {
+        "eveployment/socialite-eveonline": {
+            "dev-master": {
+                "name": "eveployment/socialite-eveonline",
+                "version": "dev-master",
+                "version_normalized": "9999999-dev",
+                "source": {
+                    "type": "git",
+                    "url": "https://github.com/EVEployment/socialite-eveonline.git",
+                    "reference": "0d0daebdbacddef2101ba0501a23aff94bcb60e0"
+                },
+                "dist": {
+                    "type": "zip",
+                    "url": "https://api.github.com/repos/EVEployment/socialite-eveonline/zipball/0d0daebdbacddef2101ba0501a23aff94bcb60e0",
+                    "reference": "0d0daebdbacddef2101ba0501a23aff94bcb60e0",
+                    "shasum": ""
+                },
+                "require": {
+                    "ext-json": "*",
+                    "php": "^7.2 || ^8.0",
+                    "socialiteproviders/manager": "~4.0",
+                    "web-token/jwt-core": "^2.2",
+                    "web-token/jwt-easy": "^2.2",
+                    "web-token/jwt-signature-algorithm-ecdsa": "^2.2",
+                    "web-token/jwt-signature-algorithm-hmac": "^2.2",
+                    "web-token/jwt-signature-algorithm-rsa": "^2.2"
+                },
+                "time": "2021-02-01T13:44:20+00:00",
+                "type": "library",
+                "autoload": {
+                    "psr-4": {
+                        "EVEployment\\Socialite\\EVEOnline\\": ""
+                    }
+                },
+                "license": [
+                    "GPL-2.0"
+                ],
+                "description": "EVE Online OAuth2 Provider for Laravel Socialite",
+                "support": {
+                    "source": "https://github.com/EVEployment/socialite-eveonline/tree/master",
+                    "issues": "https://github.com/EVEployment/socialite-eveonline/issues"
+                }
+            }
+        }
+    }
+}

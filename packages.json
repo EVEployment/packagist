@@ -1,10 +1,12 @@
 {
     "packages": [],
     "includes": {
-        "include/all$96e5c0926e9d7f87094d1ba307e38ea76cd09c53.json": {
-            "sha1": "96e5c0926e9d7f87094d1ba307e38ea76cd09c53"
+        "include/all$f302a53d0efed03b234a018de9d1e10da32eb1c8.json": {
+            "sha1": "f302a53d0efed03b234a018de9d1e10da32eb1c8"
         }
     },
     "metadata-url": "/packagist/p2/%package%.json",
-    "available-packages": []
+    "available-packages": [
+        "eveployment/socialite-eveonline"
+    ]
 }
