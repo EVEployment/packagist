@@ -41,12 +41,12 @@ jobs:
       if: |
         github.event_name == 'workflow_dispatch' || 
         github.event_name == 'push' || 
-        github.event_name == 'regenerate'
-      run: php satis/bin/satis build conf/satis.json pages/
+        (github.event_name == 'repository_dispatch' && github.event.action == 'regenerate')
+      run: php satis/bin/satis build conf/satis.json pages
     - name: Run Satis (Partial Build)
       if: |
-        github.event_name == 'update'
-      run: php satis/bin/satis build --repository-url ${{github.event.client-payload.repo}} conf/satis.json pages/
+        github.event_name == 'repository_dispatch' && github.event.action == 'update'
+      run: php satis/bin/satis build --repository-url ${{github.event.client-payload.repo}} conf/satis.json pages
     - name: Upload changes to Pages
       continue-on-error: true
       run: |
