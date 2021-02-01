@@ -5,6 +5,8 @@ on:
     branches: 
       - master
   workflow_dispatch:
+  repository_dispatch:
+    types: [regenerate, update]
     
 jobs: 
   build:
@@ -35,8 +37,16 @@ jobs:
         key: composer-cache
     - name: Install Satis
       run: composer create-project --remove-vcs composer/satis:dev-master ./satis
-    - name: Run Satis
+    - name: Run Satis (Full Build)
+      if: |
+        github.event_name == 'workflow_dispatch' || 
+        github.event_name == 'push' || 
+        github.event_name == 'regenerate'
       run: php satis/bin/satis build conf/satis.json pages/
+    - name: Run Satis (Partial Build)
+      if: |
+        github.event_name == 'update'
+      run: php satis/bin/satis build --repository-url ${{github.event.client-payload.repo}} conf/satis.json pages/
     - name: Upload changes to Pages
       continue-on-error: true
       run: |
