@@ -1,6 +1,8 @@
 {
     "name": "EVEployment Repository",
     "homepage": "https://eveployment.github.io/packagist",
-    "repositories": [],
+    "repositories": [
+        { "type": "vcs", "url": "git://github.com/EVEployment/socialite-eveonline.git" }
+    ],
     "require-all": true
 }
